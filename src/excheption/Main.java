@@ -1,30 +1,24 @@
 package excheption;
 
-import java.util.Scanner;
-
 public class Main {
-
-    public static void enterClub(int age){
-        if(age<18){
-            throw new InvalidAgeException("Invalid age");
-        }else {
-            System.out.println("true");
-        }
-    }
-
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("enter your age");
-        int age = sc.nextInt();
+        PaymentProcessor processor = new PaymentProcessor();
+        try {
+            processor.processPayment(PaymentType.CRYPTO, 150.0);
+            processor.processPayment(PaymentType.PAYPAL, -30.0);
+        } catch (InvalidAmountException e) {
+            System.err.println("Payment failed: " + e.getMessage());
+        }
+
+        int code = 201;
 
         try {
-            enterClub(age);
-        }catch (InvalidAgeException e){
-
+            PaymentStatus status = PaymentStatus.fromCode(code);
+            System.out.println("Status: " + status);
+            System.out.println("Message: " + status.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid status code: " + code);
         }
     }
-
-
-
 }
