@@ -19,12 +19,13 @@ public enum DayActivity {
         return activity;
     }
 
-    public static DayActivity fromString(String day) {
-        if (day == null) return null;
-        try {
-            return DayActivity.valueOf(day.trim().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return null;
+    public static String getNextDay(String day) {
+        for (DayActivity dayActivity : DayActivity.values()) {
+            if (DayActivity.valueOf(day.toUpperCase()).equals(dayActivity)) {
+                return dayActivity.getActivity();
+            }
         }
+        return null;
     }
+
 }
