@@ -1,6 +1,8 @@
 package light;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -79,5 +81,65 @@ public class Main {
             upperKeysMap.put(entry.getKey().toUpperCase(), entry.getValue());
         }
         System.out.println("Böyük hərf key-lər: " + upperKeysMap);
+
+        // 6. Telefon kitabı
+        HashMap<String, List<String>> phoneBook = new HashMap<>();
+        phoneBook.put("Ali", Arrays.asList("0501234567", "0707654321"));
+        phoneBook.put("Veli", Arrays.asList("0559876543"));
+        System.out.println("Telefon kitabı: " + phoneBook);
+
+        System.out.println("\n---");
+
+        // 7. Tələbə və qiymətlər + orta hesab
+        HashMap<String, List<Integer>> studentGrades = new HashMap<>();
+        studentGrades.put("Ali", Arrays.asList(90, 80, 85));
+        studentGrades.put("Veli", Arrays.asList(70, 75, 80));
+        studentGrades.put("Aysel", Arrays.asList(100, 95, 90));
+
+        for (Map.Entry<String, List<Integer>> entry : studentGrades.entrySet()) {
+            String student = entry.getKey();
+            List<Integer> grades = entry.getValue();
+            double avg = grades.stream().mapToInt(Integer::intValue).average().orElse(0);
+            System.out.println(student + " orta balı: " + avg);
+        }
+
+        System.out.println("\n---");
+
+        // 8. Mətn analizatoru (hərflərin sayı)
+        String text = "Salam dünya";
+        HashMap<Character, Integer> charCount = new HashMap<>();
+        for (char c : text.toCharArray()) {
+            if (c != ' ') { // boşluqları saymırıq
+                charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+            }
+        }
+        System.out.println("Hərflərin sayı: " + charCount);
+
+        System.out.println("\n---");
+
+        // 9. HashMap birləşdirmə (merge)
+        HashMap<String, Integer> map1 = new HashMap<>();
+        map1.put("alma", 2);
+        map1.put("armud", 3);
+
+        HashMap<String, Integer> map2 = new HashMap<>();
+        map2.put("alma", 4);
+        map2.put("banan", 5);
+
+        map2.forEach((key, value) -> map1.merge(key, value, Integer::sum));
+        System.out.println("Birləşdirilmiş xəritə: " + map1);
+
+        System.out.println("\n---");
+
+        // 10. HashMap sıralama (value-ya görə azalan sıra)
+        HashMap<String, Integer> scoress = new HashMap<>();
+        scoress.put("Ali", 85);
+        scoress.put("Veli", 90);
+        scoress.put("Aysel", 95);
+
+        scores.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .forEach(entry -> System.out.println(entry.getKey() + " : " + entry.getValue()));
     }
 }
