@@ -161,5 +161,43 @@ public class Main {
         for (Map.Entry<String, List<String>> entry : anagramMap.entrySet()) {
             System.out.println(entry.getKey() + " => " + entry.getValue());
         }
+
+        HashMap<String, Double> products = new HashMap<>();
+        products.put("Telefon", 1500.0);
+        products.put("Noutbuk", 2500.0);
+        products.put("Qulaqlıq", 200.0);
+        products.put("Monitor", 800.0);
+
+        String maxProduct = null;
+        String minProduct = null;
+        double maxPrice = Double.MIN_VALUE;
+        double minPrice = Double.MAX_VALUE;
+
+        for (Map.Entry<String, Double> entry : products.entrySet()) {
+            String product = entry.getKey();
+            double price = entry.getValue();
+
+            if (price > maxPrice) {
+                maxPrice = price;
+                maxProduct = product;
+            }
+            if (price < minPrice) {
+                minPrice = price;
+                minProduct = product;
+            }
+        }
+
+        System.out.println("Ən bahalı məhsul: " + maxProduct + " - " + maxPrice);
+        System.out.println("Ən ucuz məhsul: " + minProduct + " - " + minPrice);
+
+        for (String product : products.keySet()) {
+            double newPrice = products.get(product) * 1.10;
+            products.put(product, newPrice);
+        }
+
+        System.out.println("\nYenilənmiş qiymətlər:");
+        for (Map.Entry<String, Double> entry : products.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
     }
 }
